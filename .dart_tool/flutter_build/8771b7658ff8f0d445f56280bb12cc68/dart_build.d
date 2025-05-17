@@ -1,0 +1,1 @@
+ /home/mac/Desktop/Flutter/snapvel/.dart_tool/flutter_build/8771b7658ff8f0d445f56280bb12cc68/dart_build_result.json: 

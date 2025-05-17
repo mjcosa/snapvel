@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "78567599802",
+    "project_id": "snapvel-d1375",
+    "storage_bucket": "snapvel-d1375.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78567599802:android:c9df4967ae7670c10c5c83",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK6C2Rw6tWXyYwwnZHvRgMxS41jkOneYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

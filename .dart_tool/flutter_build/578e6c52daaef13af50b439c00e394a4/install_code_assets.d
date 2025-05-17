@@ -1,0 +1,1 @@
+ /home/mac/Desktop/Flutter/snapvel/.dart_tool/flutter_build/578e6c52daaef13af50b439c00e394a4/native_assets.json: 
