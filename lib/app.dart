@@ -8,14 +8,6 @@ import 'package:travel_app/intro/authpage.dart';
 import 'package:travel_app/profile/data/firebase_profile_repo.dart';
 import 'package:travel_app/profile/presentation/cubits/cubits_profile.dart';
 
-/*
-  Repos
-
-  bloc providers
-
-  auth state
-*/
-
 class MyApp extends StatelessWidget {
 
   final authRepo = FirebaseAuthReppo();
@@ -25,14 +17,14 @@ class MyApp extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-  
     //provide cubit to app
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthCubit>(create: (context) => AuthCubit(authRepo: authRepo)..checkAuth()),
-
+        
         BlocProvider(create: (context) => ProfileCubit(profileRepo: profileRepo))
       ], 
+      
       child: 
       MaterialApp(
           title: 'Snapvel App',
@@ -78,7 +70,7 @@ class MyApp extends StatelessWidget {
                 ),
           home: BlocConsumer<AuthCubit, AuthStates>(
               builder: (context, authState) {
-              
+                
               if (authState is Unauthenticated) {
                 return const Authpage();
               }

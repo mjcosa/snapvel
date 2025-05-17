@@ -1,7 +1,9 @@
 import 'package:travel_app/auth/domain/entities/user.dart';
 
+
 class ProfileUser extends AppUser {
   final String bio;
+  final String phoneno;
   final String profileImageUrl;
 
   ProfileUser({
@@ -9,14 +11,16 @@ class ProfileUser extends AppUser {
     required super.email,
     required super.name,
     required this.bio,
+    required this.phoneno,
     required this.profileImageUrl,
   });
 
-  ProfileUser copyWith({String? newBio, String? newProfileImageUrl}) {
+  ProfileUser copyWith({String? newName, String? newPhoneno, String? newBio, String? newProfileImageUrl}) {
     return ProfileUser(
       uid: uid,
       email: email,
-      name: name,
+      name: newName ?? name,
+      phoneno: newPhoneno ?? phoneno,
       bio: newBio ?? bio,
       profileImageUrl: newProfileImageUrl ?? profileImageUrl,
     );
@@ -39,6 +43,7 @@ class ProfileUser extends AppUser {
       email: json['email'], 
       name: json['name'], 
       bio: json['bio'] ?? '', 
+      phoneno: json['phoneno'] ?? '', 
       profileImageUrl: json['profileImageUrl'] ?? '',
     );
   }

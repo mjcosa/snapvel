@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_app/auth/presentation/cubits/auth_cubit.dart';
-import 'package:travel_app/post/presentation/pages/profilepage.dart';
+import 'package:travel_app/chat/chatscreen.dart';
+import 'package:travel_app/profile/pages/profilemenu.dart';
+import 'package:travel_app/profile/data/firebase_profile_repo.dart';
+import 'package:travel_app/profile/presentation/cubits/cubits_profile.dart';
+import 'package:travel_app/feed/feedscreen.dart';
 import '../../../widgets/category_item.dart';
 import '../../../widgets/recommended_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
+  
   @override
   State<HomeScreen> createState() => _HomeScreenState();
+  
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   var _selectedIndex = 2;
-
+    
   void _onNavItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -36,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.all(20.0),
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.only(
-                          bottom: 80), // Space for bottom nav
+                          bottom: 80),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -71,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildBottomNavigation() {
     return Container(
       decoration: const BoxDecoration(
-        color: Colors.deepPurple, // Dark Purple Background
+        color: Color.fromARGB(255, 40, 28, 94), // Dark Purple Background
       ),
       padding:
           const EdgeInsets.symmetric(vertical: 6), // Reduced height slightly
@@ -79,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _navItem(Icons.add, 'Create', 0),
+          _navItem(Icons.add, 'Chat', 0),
           _navItem(Icons.share, 'Post', 1),
           _navItem(Icons.home, 'Home', 2),
           _navItem(Icons.article, 'Feed', 3),
@@ -98,19 +103,19 @@ class _HomeScreenState extends State<HomeScreen> {
       // Navigate based on index
       switch (index) {
         case 0:
-          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const MessageScreen()));
           break;
         case 1:
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const Placeholder()));
           break;
         case 2:
           Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
           break;
         case 3:
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const FeedScreen()));
           break;
         case 4:
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const Placeholder()));
           break;
       }
     },
@@ -125,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 90,
               height: 90,
               decoration: BoxDecoration(
-                color: Colors.orange,
+                color: const Color.fromARGB(255, 224, 171, 91),
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
@@ -142,14 +147,14 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Icon(
               icon,
-              color: isSelected ? Colors.white : Colors.white70,
+              color: isSelected ? const Color.fromARGB(255, 0, 0, 0) : Colors.white70,
               size: 30,
             ),
             const SizedBox(height: 4),
             Text(
               label,
               style: TextStyle(
-                color: isSelected ? Colors.white : Colors.white70,
+                color: isSelected ? const Color.fromARGB(255, 0, 0, 0) : Colors.white70,
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
@@ -162,32 +167,31 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 Widget _buildHeader() {
+  final user = context.read<AuthCubit>().currentUser;
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       const Icon(Icons.menu, size: 24, color: Color(0xFF1A1A1A)),
-      const Column(
+        Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'JUAN DELA CRUZ',
-            style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
-                color: Color(0xFF1A1A1A)),
-          ),
-          Text(
-            'jcruz@gmail.com',
-            style: TextStyle(fontSize: 14, color: Color(0xFF666666)),
+            user!.email,
+            style: const TextStyle(fontSize: 14, color: Color(0xFF666666)),
           ),
         ],
       ),
       GestureDetector(
         onTap: () {
-          final user = context.read<AuthCubit>().currentUser;
-          String? uid = user!.uid;
-
-          Navigator.push(context, MaterialPageRoute(builder: (context) =>  ProfilePage(uid: uid)));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BlocProvider(
+                  create: (context) => ProfileCubit(profileRepo: FirebaseProfileRepo()),
+                  child: const ProfileScreen(), // No "const" here
+                ),
+              ),
+            );
         },
         child: const Icon(Icons.person, size: 24, color: Color(0xFF1A1A1A)),
       ),
@@ -196,10 +200,12 @@ Widget _buildHeader() {
 }
 
   Widget _buildGreeting() {
-    return const Text(
-      'Hey Juan, Good Day!',
-      style: TextStyle(
-          fontSize: 24, fontWeight: FontWeight.w600, color: Color(0xFF1A1A1A)),
+    final user = context.read<AuthCubit>().currentUser;
+
+    return Text(
+        'Hey ${user?.name ?? 'Guest'}, Good Day!',
+        style: const TextStyle(
+        fontSize: 24, fontWeight: FontWeight.w600, color: Color(0xFF1A1A1A)),
     );
   }
 
@@ -278,7 +284,7 @@ Widget _buildHeader() {
                 SizedBox(width: 12),
                 CategoryItem(
                   imageUrl:
-                      'https://i2.pickpik.com/photos/664/823/655/architecture-buildings-business-city-preview.jpg',
+                      '',
                   name: 'City',
                 ),
                 SizedBox(width: 12),

@@ -1,5 +1,4 @@
 // auth cubit
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_app/auth/domain/entities/user.dart';
 import 'package:travel_app/auth/domain/repository/auth_repo.dart';

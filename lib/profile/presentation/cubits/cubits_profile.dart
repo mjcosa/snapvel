@@ -6,17 +6,20 @@ import 'package:travel_app/profile/presentation/cubits/states_profile.dart';
 class ProfileCubit extends Cubit<ProfileState> {
   final ProfileRepo profileRepo;
 
-  ProfileCubit({required this.profileRepo}) : super(ProfileInitial());
+  ProfileCubit({required this.profileRepo}) : super(ProfileInitial()){
+      debugPrint("Profile cubit initialized");
+  }
 
   Future<void> fetchUserProfile(String uid) async {
     try {
+            debugPrint('[DEBUG]data ====');
       emit(ProfileLoading());
       final user = await profileRepo.fetchUserProfile(uid);
-    debugPrint('[DEBUGDEBUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUGAESFAESFA] data ${uid}');
 
-      debugPrint('[DEBUGDEBUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUGAESFAESFA] data $user');
+      debugPrint('[DEBUG]data =+= $user');
+
       if (user != null){
-        emit(ProfileLoading());
+        emit(ProfileLoaded(user));
       } else {
         emit(ProfileError("User not found"));
         }
@@ -27,6 +30,8 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> updateProfile({
     required String uid,
+    String? newName,
+    String? newPhoneNo,
     String? newBio,
   }) async {
 
@@ -41,7 +46,10 @@ class ProfileCubit extends Cubit<ProfileState> {
         return;
       }
 
-      final updatedProfile = currentUser.copyWith(newBio: newBio ?? currentUser.bio);
+      final updatedProfile = currentUser.copyWith(
+        newBio: newBio ?? currentUser.bio,
+        newPhoneno: newPhoneNo ?? currentUser.phoneno,
+      );
 
       await profileRepo.updateProfile(updatedProfile);
  
