@@ -50,139 +50,145 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Expanded(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.network(
-                      'https://cdn.builder.io/api/v1/image/assets/TEMP/d6b6c57f24c1671064f2f3828e10aa5830210bcc?placeholderIfAbsent=true&apiKey=41aedbfc202f4fad9ee59f7f26112921',
-                      width: 112,
-                      height: 104,
-                      fit: BoxFit.contain,
-                    ),
-                    const Text(
-                      'Please sign up to get started',
-                      style: TextStyle(
-                        color: Color(0xFFF98B00),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        height: 2,
-                        fontFamily: 'Sen',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              color: Color(0xFF1F214D),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(24),
-                topRight: Radius.circular(24),
-              ),
-            ),
-            padding: EdgeInsets.only(
-              left: 24,
-              right: 24,
-              top: 24,
-              bottom: MediaQuery.of(context).padding.bottom + 24,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CustomTextField(
-                  label: 'Name',
-                  placeholder: 'John doe',
-                  controller: _nameController,
-                ),
-                const SizedBox(height: 24),
-                CustomTextField(
-                  label: 'Email',
-                  placeholder: 'example@gmail.com',
-                  controller: _emailController,
-                ),
-                const SizedBox(height: 24),
-                CustomTextField(
-                  label: 'Password',
-                  placeholder: '**********',
-                  isPassword: true,
-                  controller: _passwordController,
-                ),
-                const SizedBox(height: 24),
-                CustomTextField(
-                  label: 'Re-Type Password',
-                  placeholder: '**********',
-                  isPassword: true,
-                  controller: _confirmPasswordController,
-                ),
-                const SizedBox(height: 47),
-                TextButton(
-                  onPressed: () {
-                    register();
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: const Color(0xFFFFBD69),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 70,
-                      vertical: 23,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: const Text(
-                    'SIGN UP',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Sen',
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Already have an account?',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontFamily: 'Sen',
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    GestureDetector(
-                      onTap: widget.onTap,
-                      child: const Text(
-                        'Log in',
-                        style: TextStyle(
-                          color: Color(0xFFFFBD69),
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Sen',
-                          decoration: TextDecoration.underline,
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: IntrinsicHeight(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.network(
+                                  'https://cdn.builder.io/api/v1/image/assets/TEMP/d6b6c57f24c1671064f2f3828e10aa5830210bcc?placeholderIfAbsent=true&apiKey=41aedbfc202f4fad9ee59f7f26112921',
+                                  width: 112,
+                                  height: 104,
+                                  fit: BoxFit.contain,
+                                ),
+                                const SizedBox(height: 20),
+                                const Text(
+                                  'Please sign up to get started',
+                                  style: TextStyle(
+                                    color: Color(0xFFF98B00),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                    height: 2,
+                                    fontFamily: 'Sen',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF1F214D),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(24),
+                            topRight: Radius.circular(24),
+                          ),
+                        ),
+                        padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            CustomTextField(
+                              label: 'Name',
+                              placeholder: 'John doe',
+                              controller: _nameController,
+                            ),
+                            const SizedBox(height: 24),
+                            CustomTextField(
+                              label: 'Email',
+                              placeholder: 'example@gmail.com',
+                              controller: _emailController,
+                            ),
+                            const SizedBox(height: 24),
+                            CustomTextField(
+                              label: 'Password',
+                              placeholder: '**********',
+                              isPassword: true,
+                              controller: _passwordController,
+                            ),
+                            const SizedBox(height: 24),
+                            CustomTextField(
+                              label: 'Re-Type Password',
+                              placeholder: '**********',
+                              isPassword: true,
+                              controller: _confirmPasswordController,
+                            ),
+                            const SizedBox(height: 47),
+                            TextButton(
+                              onPressed: register,
+                              style: TextButton.styleFrom(
+                                backgroundColor: const Color(0xFFFFBD69),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 70,
+                                  vertical: 23,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              child: const Text(
+                                'SIGN UP',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Sen',
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Already have an account?',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontFamily: 'Sen',
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                GestureDetector(
+                                  onTap: widget.onTap,
+                                  child: const Text(
+                                    'Log in',
+                                    style: TextStyle(
+                                      color: Color(0xFFFFBD69),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Sen',
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
-        ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
