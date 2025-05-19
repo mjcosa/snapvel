@@ -17,7 +17,7 @@ class MessageInput extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: const Text(
-        'Write somethings',
+        'Write something',
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Color(0xFFABABAB),

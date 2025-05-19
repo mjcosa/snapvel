@@ -38,11 +38,11 @@ class PostCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Image.network(
-                avatarUrl,
-                width: 45,
-                height: 45,
-                fit: BoxFit.contain,
+              Image.asset(
+                avatarUrl, // Pass a local path like 'assets/images/avatar1.png'
+                width: 40,
+                height: 40,
+                fit: BoxFit.cover,
               ),
               const SizedBox(width: 6),
               Column(
@@ -72,16 +72,16 @@ class PostCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 5),
-          Image.network(
-            imageUrl,
+          Image.asset(
+            imageUrl, // Pass a local path like 'assets/images/post1.jpg'
             width: double.infinity,
             fit: BoxFit.contain,
           ),
           const SizedBox(height: 5),
           Row(
             children: [
-              Image.network(
-                'https://cdn.builder.io/api/v1/image/assets/TEMP/87ab71af9a69341667598e6a70f173a7d554e0c6?placeholderIfAbsent=true&apiKey=41aedbfc202f4fad9ee59f7f26112921',
+              Image.asset(
+                'assets/icons/like.png', 
                 width: 20,
                 height: 20,
                 fit: BoxFit.contain,
@@ -97,8 +97,8 @@ class PostCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 4),
-              Image.network(
-                'https://cdn.builder.io/api/v1/image/assets/TEMP/08626e7c7e5c9d223c89125a2b95664959e34c4b?placeholderIfAbsent=true&apiKey=41aedbfc202f4fad9ee59f7f26112921',
+              Image.asset(
+                'assets/icons/share.png',
                 width: 19,
                 height: 19 / 1.12,
                 fit: BoxFit.contain,

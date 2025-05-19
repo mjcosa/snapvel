@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/chat/widget/chatbox.dart';
 import 'package:travel_app/chat/widget/chatbubble.dart';
 import 'package:travel_app/post/presentation/pages/home_screen.dart';
+import 'package:travel_app/feed/feedscreen.dart';
+import 'package:travel_app/gallery/photo_gallery_screen.dart';
+import 'package:travel_app/addpost/createpost.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({Key? key}) : super(key: key);
@@ -44,7 +47,7 @@ Widget build(BuildContext context) {
                       Padding(
                         padding: EdgeInsets.only(left: 11.0),
                         child: Text(
-                          'Robert Fox',
+                          'Karl Sto D. Great',
                           style: TextStyle(
                             color: Color(0xFF181C2E),
                             fontSize: 17,
@@ -89,7 +92,7 @@ Widget build(BuildContext context) {
         ),
       ),
     ),
-    bottomNavigationBar: _buildBottomNavigation(), // <-- Fixed properly
+    bottomNavigationBar: _buildBottomNavigation(),
   );
 }
 
@@ -128,16 +131,16 @@ Widget build(BuildContext context) {
           Navigator.push(context, MaterialPageRoute(builder: (context) => const MessageScreen()));
           break;
         case 1:
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const Placeholder()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const CreatePost()));
           break;
         case 2:
           Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
           break;
         case 3:
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const Placeholder()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const FeedScreen()));
           break;
         case 4:
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const Placeholder()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const PhotoGalleryScreen()));
           break;
       }
     },

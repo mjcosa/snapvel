@@ -6,6 +6,8 @@ import 'package:travel_app/profile/pages/profilemenu.dart';
 import 'package:travel_app/profile/data/firebase_profile_repo.dart';
 import 'package:travel_app/profile/presentation/cubits/cubits_profile.dart';
 import 'package:travel_app/feed/feedscreen.dart';
+import 'package:travel_app/gallery/photo_gallery_screen.dart';
+import 'package:travel_app/addpost/createpost.dart';
 import '../../../widgets/category_item.dart';
 import '../../../widgets/recommended_item.dart';
 
@@ -106,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.push(context, MaterialPageRoute(builder: (context) => const MessageScreen()));
           break;
         case 1:
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const Placeholder()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const CreatePost()));
           break;
         case 2:
           Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
@@ -115,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.push(context, MaterialPageRoute(builder: (context) => const FeedScreen()));
           break;
         case 4:
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const Placeholder()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const PhotoGalleryScreen()));
           break;
       }
     },

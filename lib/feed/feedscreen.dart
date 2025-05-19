@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/chat/chatscreen.dart';
 import 'package:travel_app/post/presentation/pages/home_screen.dart';
 import 'package:travel_app/widgets/postcard.dart';
+import 'package:travel_app/gallery/photo_gallery_screen.dart';
+import 'package:travel_app/addpost/createpost.dart';
 
 
 class FeedScreen extends StatefulWidget {
@@ -42,13 +44,14 @@ class _FeedScreenState extends State<FeedScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // User Profile Section
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
+                              _buildMenuButton(),
+                              const SizedBox(width: 12),
                               const Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -61,6 +64,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                       fontFamily: 'Sen',
                                     ),
                                   ),
+                                  SizedBox(height: 4),
                                   Text(
                                     'jcruz@gmail.com',
                                     style: TextStyle(
@@ -72,22 +76,11 @@ class _FeedScreenState extends State<FeedScreen> {
                                   ),
                                 ],
                               ),
-                              const SizedBox(width: 3),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 24),
-                                child: Image.network(
-                                  'https://cdn.builder.io/api/v1/image/assets/TEMP/6029676c620bbd52dddc70bb5eb55359a624c3aa?placeholderIfAbsent=true&apiKey=41aedbfc202f4fad9ee59f7f26112921',
-                                  width: 8,
-                                  height: 8 * 1.6,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
                             ],
                           ),
                         ),
-                        const SizedBox(width: 20),
-                        Image.network(
-                          'https://cdn.builder.io/api/v1/image/assets/TEMP/aad099be6ebbd99e32d9eb7f5bfe01b7e7aa563f?placeholderIfAbsent=true&apiKey=41aedbfc202f4fad9ee59f7f26112921',
+                        Image.asset(
+                          'assets/icons/profile.png',
                           width: 45,
                           height: 45,
                           fit: BoxFit.contain,
@@ -116,20 +109,20 @@ class _FeedScreenState extends State<FeedScreen> {
                     const SizedBox(height: 24),
                     // First Post Card
                     const PostCard(
-                      avatarUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/aad099be6ebbd99e32d9eb7f5bfe01b7e7aa563f?placeholderIfAbsent=true&apiKey=41aedbfc202f4fad9ee59f7f26112921',
-                      username: 'Crystal Davidson',
+                      avatarUrl: 'assets/images/avatar1.jpg',
+                      username: 'Karl Sto D. Great',
                       location: 'Boracay Malay, Aklan',
-                      imageUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f4ff9843194e53988ac3e886b22c6e6b3ee00363?placeholderIfAbsent=true&apiKey=41aedbfc202f4fad9ee59f7f26112921',
+                      imageUrl: 'assets/images/boracay.jpg',
                       likes: '1.2k',
                       comments: '52',
                     ),
                     const SizedBox(height: 24),
                     // Second Post Card
                     const PostCard(
-                      avatarUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/aad099be6ebbd99e32d9eb7f5bfe01b7e7aa563f?placeholderIfAbsent=true&apiKey=41aedbfc202f4fad9ee59f7f26112921',
-                      username: 'Lebron James Reid',
+                      avatarUrl: 'assets/images/avatar2.jpg',
+                      username: 'Lebron Jervis',
                       location: 'Mount Apo Kidapawan, Cotabato',
-                      imageUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/5a41f4a7f712dad0621214eed9ca98179c93838a?placeholderIfAbsent=true&apiKey=41aedbfc202f4fad9ee59f7f26112921',
+                      imageUrl: 'assets/images/mount.jpg',
                       likes: '605',
                       comments: '14',
                     ),
@@ -141,7 +134,7 @@ class _FeedScreenState extends State<FeedScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: _buildBottomNavigation(), // <--- move this here!
+      bottomNavigationBar: _buildBottomNavigation(),
     );
   }
 
@@ -166,6 +159,34 @@ class _FeedScreenState extends State<FeedScreen> {
     );
   }
 
+   Widget _buildMenuButton() {
+    return Container(
+      width: 45,
+      height: 45,
+      decoration: BoxDecoration(
+        color: const Color(0xFFECF0F4),
+        borderRadius: BorderRadius.circular(45),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(
+          3,
+          (index) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            child: Container(
+              width: 16,
+              height: 2,
+              decoration: BoxDecoration(
+                color: const Color(0xFF181C2E),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _navItem(IconData icon, String label, int index) {
   bool isSelected = _selectedIndex == index;
 
@@ -178,7 +199,7 @@ class _FeedScreenState extends State<FeedScreen> {
           Navigator.push(context, MaterialPageRoute(builder: (context) => const MessageScreen()));
           break;
         case 1:
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const Placeholder()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const CreatePost()));
           break;
         case 2:
           Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
@@ -187,7 +208,7 @@ class _FeedScreenState extends State<FeedScreen> {
           Navigator.push(context, MaterialPageRoute(builder: (context) => const FeedScreen()));
           break;
         case 4:
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const Placeholder()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const PhotoGalleryScreen()));
           break;
       }
     },
